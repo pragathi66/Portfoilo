@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pragathi Nekkanti — Portfolio</title>
+
+  <style>
+    :root{
+      --bg:#f6f8fb; --card:#ffffff; --text:#0f172a; --muted:#6b7280; --accent:#0ea5a1;
+      --max-width:1000px; --gutter:28px;
+    }
+    html.dark{ --bg:#071025; --card:#071421; --text:#e6eef8; --muted:#9aa6b2; --accent:#55f0b0 }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;background:var(--bg);color:var(--text);line-height:1.5}
+
+    .page{max-width:var(--max-width);margin:36px auto;padding:0 var(--gutter)}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    nav{display:flex;gap:14px;align-items:center}
+    .nav-link{color:var(--muted);font-size:14px;text-decoration:none}
+    .btn{background:var(--accent);color:#03201a;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600}
+    .ghost{background:none;border:1px solid rgba(0,0,0,0.15);padding:6px 10px;border-radius:8px;color:var(--muted)}
+
+    #about{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+    #about h2{margin-bottom:8px}
+    #about p{color:var(--muted)}
+
+    .hero{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start;margin-top:26px}
+    .avatar{height:140px;background:linear-gradient(135deg,var(--accent),#06b6d4);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:32px;color:#021018}
+
+    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{background:rgba(0,0,0,0.06);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+    .projects{margin-top:30px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:14px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.06);transition:.2s;cursor:pointer}
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
+
+    .tag{background:rgba(14,165,161,0.1);padding:4px 8px;border-radius:8px;font-size:12px;color:var(--accent);margin-right:6px}
+
+    #contact .card{background:var(--card);padding:20px;border-radius:12px;margin-top:10px}
+
+    .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
+    .modal-bg.open{opacity:1;pointer-events:auto}
+    .modal{max-width:700px;width:90%;background:var(--card);padding:20px;border-radius:12px}
+
+    .fade{opacity:0;transform:translateY(10px);transition:.5s}
+    .fade.show{opacity:1;transform:none}
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <h2>Pragathi Nekkanti</h2>
+      <nav>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <button id="themeToggle" class="ghost">Dark</button>
+        <a class="btn" id="resumeLink" download>Resume</a>
+      </nav>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade">
+      <h2>About Me</h2>
+      <p>
+        I am an aspiring Software Engineer specializing in backend systems, automation frameworks, 
+        and machine learning deployment. Passionate about building scalable services with clean code, 
+        strong problem-solving skills, and reliable architecture.
+      </p>
+    </section>
+
+    <!-- HERO -->
+    <section class="hero fade">
+      <div>
+        <h2>Building Scalable Backend & ML Systems</h2>
+        <p style="color:var(--muted);margin-top:8px;">Skilled in Java, Python, SQL, Spark, Selenium, and REST APIs.</p>
+
+        <div class="skills">
+          <span class="chip">Java</span>
+          <span class="chip">Python</span>
+          <span class="chip">Spring Boot</span>
+          <span class="chip">Apache Spark</span>
+          <span class="chip">TensorFlow</span>
+          <span class="chip">REST APIs</span>
+        </div>
+      </div>
+
+      <aside>
+        <div class="avatar">PN</div>
+        <p style="color:var(--muted);margin-top:8px;">
+          Hyderabad · <a href="mailto:pragathinekkanti01@gmail.com">pragathinekkanti01@gmail.com</a>
+        </p>
+      </aside>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects fade">
+      <h2>Projects</h2>
+      <div class="grid" id="projectGrid"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Email: <a href="mailto:pragathinekkanti01@gmail.com">pragathinekkanti01@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/pragathi66" target="_blank">github.com/pragathi66</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/pragathinekkanti01" target="_blank">linkedin.com/in/pragathinekkanti01</a></p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL -->
+  <div id="modalBg" class="modal-bg">
+    <div class="modal" id="modalContent"></div>
+  </div>
+
+<script>
+  const projects = [
+    {
+      title: "Sentiment Analysis on Fashion Reviews",
+      desc: "NLP pipeline, LSTM/CNN, REST API deployment.",
+      tags: ["Python", "TensorFlow", "NLP"],
+      details: "• Preprocessed 20,000+ reviews<br>• Built embeddings + LSTM models<br>• Deployed via Flask API"
+    },
+    {
+      title: "Big Data Classification using Spark",
+      desc: "Distributed ETL, MLlib models, large-scale processing.",
+      tags: ["Spark", "PySpark", "MLlib"],
+      details: "• Processed 1M+ logs<br>• Built distributed pipelines<br>• Improved performance 70%"
+    },
+    {
+      title: "Automated Regression Framework",
+      desc: "Selenium + REST Assured framework with reporting.",
+      tags: ["Java", "Selenium", "REST Assured"],
+      details: "• Parallel execution<br>• Dashboard reporting<br>• API + UI integration"
+    }
+  ];
+
+  const grid = document.getElementById("projectGrid");
+  projects.forEach(p => {
+    const d = document.createElement("div");
+    d.className = "card fade";
+    d.innerHTML = `
+      <h3>${p.title}</h3>
+      <p style="color:var(--muted);font-size:14px">${p.desc}</p>
+      <div style="margin-top:10px;">
+        ${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
+      </div>
+    `;
+    d.onclick = () => openModal(p);
+    grid.appendChild(d);
+  });
+
+  const modalBg = document.getElementById("modalBg");
+  const modalContent = document.getElementById("modalContent");
+
+  function openModal(p){
+    modalContent.innerHTML = `
+      <h2>${p.title}</h2>
+      <p style="margin-top:6px;color:var(--muted)">${p.details}</p>
+      <div style="text-align:right;margin-top:20px">
+        <button class="ghost" onclick="closeModal()">Close</button>
+      </div>
+    `;
+    modalBg.classList.add("open");
+  }
+  function closeModal(){ modalBg.classList.remove("open"); }
+
+  document.getElementById("themeToggle").onclick = () =>
+    document.documentElement.classList.toggle("dark");
+
+  // UPDATED RESUME LINK
+  document.getElementById("resumeLink").href = "Pragathi_Nekkanti_Resume.pdf";
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("show"); });
+  }, {threshold:0.1});
+
+  document.querySelectorAll(".fade").forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
+
